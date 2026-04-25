@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Patient {
     private String prenom;
     private String email;
     private String Telephone;
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
 
     @OneToMany
     private List<RendezVou> rendezVous;
