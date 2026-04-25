@@ -1,0 +1,14 @@
+package org.example.systemedegestionmedicale.Mapper;
+
+
+import org.example.systemedegestionmedicale.Dto.PatientDto;
+import org.example.systemedegestionmedicale.Models.Patient;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface PatientMapper {
+
+    PatientDto toDto(Patient patient);
+    Patient toEntity(PatientDto patientDto);
+
+}
