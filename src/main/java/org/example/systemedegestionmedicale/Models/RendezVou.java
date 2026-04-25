@@ -16,7 +16,7 @@ public class RendezVou {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate dateRendezVous;
-    private StatusRendezVou status;
+    private StatusRendezVou statusRendezVou;
 
 
     @ManyToOne
