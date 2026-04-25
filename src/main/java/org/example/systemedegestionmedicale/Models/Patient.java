@@ -4,7 +4,6 @@ package org.example.systemedegestionmedicale.Models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,11 +19,10 @@ public class Patient {
     private String prenom;
     private String email;
     private String Telephone;
+    @Column(name = "date_naissance")
     private LocalDate dateNaissance;
 
-    @OneToMany
+    @OneToMany(mappedBy = "patient")
     private List<RendezVou> rendezVous;
 
-    @OneToOne
-    private DossierMedical dossierMedical;
 }
