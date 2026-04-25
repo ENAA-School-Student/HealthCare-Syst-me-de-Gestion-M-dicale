@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class Patient {
+public class PatientDto {
 
     private long id;
     private String nom;
