@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "patient")
@@ -19,4 +20,10 @@ public class Patient {
     private String email;
     private String Telephone;
     private Date dateNaissance;
+
+    @OneToMany
+    private List<RendezVou> rendezVous;
+
+    @OneToOne
+    private DossierMedical dossierMedical;
 }
