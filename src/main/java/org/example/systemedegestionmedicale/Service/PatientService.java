@@ -23,4 +23,19 @@ public class PatientService {
         return patientMapper.toDto(save);
 
     }
+
+    public PatientDto modifierPatient(long id, PatientDto patientDto){
+        Patient entity = patientMapper.toEntity(patientDto);
+        Patient saveId = patientRepository.findById(id).orElse(null);
+
+        saveId.setNom(entity.getNom());
+        saveId.setPrenom(entity.getPrenom());
+        saveId.setEmail(entity.getEmail());
+        saveId.setTelephone(entity.getTelephone());
+        saveId.setDateNaissance(entity.getDateNaissance());
+
+        Patient update = patientRepository.save(saveId);
+        return patientMapper.toDto(update);
+    }
+
 }

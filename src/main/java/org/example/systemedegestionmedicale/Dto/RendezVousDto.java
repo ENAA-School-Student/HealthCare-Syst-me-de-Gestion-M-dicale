@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 @Data
 public class RendezVousDto {
-
-    private long id;
     private LocalDate dateRendezVous;
     private StatusRendezVou statusRendezVou;
 
