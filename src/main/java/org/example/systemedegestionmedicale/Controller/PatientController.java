@@ -4,10 +4,7 @@ package org.example.systemedegestionmedicale.Controller;
 import lombok.RequiredArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.PatientDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/patient")
@@ -19,5 +16,10 @@ public class PatientController {
     @PostMapping
     public PatientDto ajouterPatient(@RequestBody PatientDto patientDto){
         return patientService.ajouterPatient(patientDto);
+    }
+
+    @PutMapping("/{id}")
+    public PatientDto modifierPatient(@PathVariable long id, PatientDto patientDto){
+        return patientService.modifierPatient(id,patientDto);
     }
 }
