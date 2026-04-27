@@ -12,10 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/medecin")
-@AllArgsConstructor
 public class MedecinController {
 
     private final MedecinService medecinService;
+
+    public MedecinController(MedecinService medecinService){
+        this.medecinService = medecinService;
+    }
 
 
     @PostMapping

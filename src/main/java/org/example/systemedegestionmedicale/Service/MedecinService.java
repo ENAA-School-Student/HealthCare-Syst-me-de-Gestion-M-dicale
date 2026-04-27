@@ -1,7 +1,6 @@
 package org.example.systemedegestionmedicale.Service;
 
 
-import lombok.AllArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.MedecinDto;
 import org.example.systemedegestionmedicale.Mapper.MedecinMapper;
 import org.example.systemedegestionmedicale.Models.Medecin;
@@ -11,11 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class MedecinService {
 
     private MedecinRepository medecinRepository;
     private MedecinMapper medecinMapper;
+
+    public MedecinService(MedecinRepository medecinRepository, MedecinMapper medecinMapper){
+        this.medecinRepository = medecinRepository;
+        this.medecinMapper = medecinMapper;
+    }
 
 
     public MedecinDto ajouterMedecin(MedecinDto medecinDto){

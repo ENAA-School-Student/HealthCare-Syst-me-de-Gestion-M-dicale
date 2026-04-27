@@ -10,10 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/patient")
-@RequiredArgsConstructor
 public class PatientController {
 
     private final PatientService patientService;
+
+    public PatientController(PatientService patientService){
+        this.patientService = patientService;
+    }
 
     @PostMapping
     public PatientDto ajouterPatient(@RequestBody PatientDto patientDto){
