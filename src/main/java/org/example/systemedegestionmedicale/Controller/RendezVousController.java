@@ -24,4 +24,8 @@ public class RendezVousController {
     public RendezVousDto modifierRendezVous(@PathVariable long id, @RequestBody RendezVousModifierDto rendezVousDto){
         return rendezVousService.modifierRendezVous(id, rendezVousDto);
     }
+    @PutMapping("/{id}/statut")
+    public void annulerRendezVous(@PathVariable long id){
+        rendezVousService.annulerRendezVous(id);
+    }
 }
