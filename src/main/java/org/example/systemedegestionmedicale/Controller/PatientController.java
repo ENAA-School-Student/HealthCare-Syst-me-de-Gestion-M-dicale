@@ -25,7 +25,7 @@ public class PatientController {
         return patientService.modifierPatient(id,patientDto);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void supprimerPatient(@PathVariable long id){
         patientService.supprimerPatient(id);
     }
@@ -33,6 +33,11 @@ public class PatientController {
     @GetMapping
     public List<PatientDto> listerPatients(){
       return  patientService.listerPatients();
+    }
+
+    @GetMapping("/{id}")
+    public PatientDto consulterPatient(@PathVariable long id){
+        return patientService.consulterPatient(id);
     }
 
 }

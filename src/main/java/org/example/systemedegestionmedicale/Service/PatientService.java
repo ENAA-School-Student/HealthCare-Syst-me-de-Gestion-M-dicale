@@ -48,4 +48,9 @@ public class PatientService {
         return patientMapper.todtolist(patientRepository.findAll());
     }
 
+    public PatientDto consulterPatient(long id){
+       Patient findPatient = patientRepository.findById(id).orElse(null);
+       return patientMapper.toDto(findPatient);
+    }
+
 }
