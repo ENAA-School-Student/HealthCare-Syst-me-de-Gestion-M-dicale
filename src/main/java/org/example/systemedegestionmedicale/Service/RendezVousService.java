@@ -4,10 +4,13 @@ package org.example.systemedegestionmedicale.Service;
 import lombok.AllArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.RendezVousDto;
 import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
+import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
 import org.example.systemedegestionmedicale.Mapper.RendezVouMapper;
 import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.example.systemedegestionmedicale.Repository.RendezVousRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RendezVousService {
@@ -37,4 +40,12 @@ public class RendezVousService {
         RendezVou update = rendezVousRepository.save(saveRendezVou);
         return rendezVouMapper.toDto(update);
     }
+
+    public RendezVousDto annulerRendezVous(long id){
+        RendezVou findRendezVous = rendezVousRepository.findById(id).orElse(null);
+         findRendezVous.setStatusRendezVou(StatusRendezVou.annule);
+         RendezVou saveRendezVou = rendezVousRepository.save(findRendezVous);
+         return rendezVouMapper.toDto(saveRendezVou);
+    }
+
 }
