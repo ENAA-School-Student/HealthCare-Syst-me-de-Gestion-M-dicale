@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Service;
 
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.PatientDto;
 import org.example.systemedegestionmedicale.Mapper.PatientMapper;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PatientService {
 
     private final PatientRepository patientRepository;

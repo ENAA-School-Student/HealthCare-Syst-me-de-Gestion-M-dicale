@@ -22,4 +22,16 @@ public class MedecinService {
         return medecinMapper.toDto(save);
 
     }
+
+    public MedecinDto ModifierMedecin(long id, MedecinDto medecinDto){
+        Medecin entity = medecinMapper.toEntity(medecinDto);
+        Medecin saveId = medecinRepository.findById(id).orElse(null);
+
+        saveId.setNom(entity.getNom());
+        saveId.setSpecialite(entity.getSpecialite());
+        saveId.setEmail(entity.getEmail());
+        saveId.setTelephone(entity.getTelephone());
+        Medecin update =  medecinRepository.save(saveId);
+        return medecinMapper.toDto(update);
+    }
 }
