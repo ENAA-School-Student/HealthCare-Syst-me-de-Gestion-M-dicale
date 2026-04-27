@@ -3,6 +3,7 @@ package org.example.systemedegestionmedicale.Service;
 
 import lombok.AllArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.RendezVousDto;
+import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Mapper.RendezVouMapper;
 import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.example.systemedegestionmedicale.Repository.RendezVousRepository;
@@ -20,9 +21,20 @@ public class RendezVousService {
     }
 
 
-    public RendezVousDto CreerRendezVous(RendezVousDto rendezVousDto){
+    public RendezVousDto creerRendezVous(RendezVousDto rendezVousDto){
         RendezVou rendezVou = rendezVouMapper.toEntity(rendezVousDto);
         RendezVou saveRendezVou = rendezVousRepository.save(rendezVou);
         return rendezVouMapper.toDto(saveRendezVou);
+    }
+
+    public RendezVousDto modifierRendezVous(long id, RendezVousModifierDto RendezVousModifierDto){
+        RendezVou rendezVou = rendezVouMapper.toModifier(RendezVousModifierDto);
+        RendezVou saveRendezVou = rendezVousRepository.findById(id).orElse(null);
+
+        saveRendezVou.setDateRendezVous(rendezVou.getDateRendezVous());
+        saveRendezVou.setStatusRendezVou(rendezVou.getStatusRendezVou());
+
+        RendezVou update = rendezVousRepository.save(saveRendezVou);
+        return rendezVouMapper.toDto(update);
     }
 }
