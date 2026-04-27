@@ -38,4 +38,8 @@ public class PatientService {
         return patientMapper.toDto(update);
     }
 
+    public void supprimerPatient(long id){
+        patientRepository.deleteById(id);
+    }
+
 }
