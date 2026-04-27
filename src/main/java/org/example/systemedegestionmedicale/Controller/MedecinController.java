@@ -26,5 +26,10 @@ public class MedecinController {
         return medecinService.ModifierMedecin(id, medecinDto);
     }
 
+    @DeleteMapping("/{id}")
+    public void supprimerMedecin(@PathVariable long id){
+        medecinService.supprimerMedecin(id);
+    }
+
 
 }

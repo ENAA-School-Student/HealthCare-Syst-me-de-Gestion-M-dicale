@@ -34,4 +34,8 @@ public class MedecinService {
         Medecin update =  medecinRepository.save(saveId);
         return medecinMapper.toDto(update);
     }
+
+    public void supprimerMedecin(long id){
+        medecinRepository.deleteById(id);
+    }
 }
