@@ -8,6 +8,8 @@ import org.example.systemedegestionmedicale.Models.Patient;
 import org.example.systemedegestionmedicale.Repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PatientService {
@@ -40,6 +42,10 @@ public class PatientService {
 
     public void supprimerPatient(long id){
         patientRepository.deleteById(id);
+    }
+
+    public List<PatientDto> listerPatients(){
+        return patientMapper.todtolist(patientRepository.findAll());
     }
 
 }
