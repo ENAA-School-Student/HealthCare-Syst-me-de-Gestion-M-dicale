@@ -8,6 +8,8 @@ import org.example.systemedegestionmedicale.Models.Medecin;
 import org.example.systemedegestionmedicale.Repository.MedecinRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MedecinService {
@@ -37,5 +39,9 @@ public class MedecinService {
 
     public void supprimerMedecin(long id){
         medecinRepository.deleteById(id);
+    }
+
+    public List<MedecinDto> listerMedecins(){
+        return medecinMapper.toDtoList(medecinRepository.findAll());
     }
 }

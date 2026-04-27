@@ -8,6 +8,8 @@ import org.example.systemedegestionmedicale.Dto.MedecinDto;
 import org.example.systemedegestionmedicale.Service.MedecinService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/medecin")
 @AllArgsConstructor
@@ -29,6 +31,11 @@ public class MedecinController {
     @DeleteMapping("/{id}")
     public void supprimerMedecin(@PathVariable long id){
         medecinService.supprimerMedecin(id);
+    }
+
+    @GetMapping
+    public List<MedecinDto> listerMedecins(){
+        return medecinService.listerMedecins();
     }
 
 
