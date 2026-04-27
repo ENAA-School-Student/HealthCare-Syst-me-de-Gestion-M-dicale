@@ -22,4 +22,10 @@ public class PatientController {
     public PatientDto modifierPatient(@PathVariable long id, PatientDto patientDto){
         return patientService.modifierPatient(id,patientDto);
     }
+
+    @DeleteMapping("{id}")
+    public void supprimerPatient(@PathVariable long id){
+        patientService.supprimerPatient(id);
+    }
+
 }
