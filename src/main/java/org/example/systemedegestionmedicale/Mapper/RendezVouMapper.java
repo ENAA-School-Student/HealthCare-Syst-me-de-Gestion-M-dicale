@@ -6,6 +6,8 @@ import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RendezVouMapper {
     @Mapping(source = "patient.id", target = "patientId")
@@ -17,4 +19,6 @@ public interface RendezVouMapper {
     RendezVou toEntity(RendezVousDto rendezVousDto);
 
     RendezVou toModifier(RendezVousModifierDto rendezVousModifierDto);
+
+    List<RendezVousDto> toDtoList(List<RendezVou> rendezVous);
 }
