@@ -27,7 +27,7 @@ create table dossier_medical(
 create table rendez_vou(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     date_rendez_vous date not null ,
-    status_rendez_vou enum("en_attent", "confirme", "annule") Not null DEFAULT "en_attent",
+    status_rendez_vou varchar(50) not null ,
     patient_id BIGINT,
     medecin_id BIGINT
 );

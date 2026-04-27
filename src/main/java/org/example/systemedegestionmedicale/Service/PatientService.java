@@ -12,16 +12,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class PatientService {
 
-    private final PatientRepository patientRepository;
-    private final PatientMapper patientMapper;
+    private  PatientRepository patientRepository;
+    private  PatientMapper patientMapper;
+
+    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper){
+        this.patientRepository = patientRepository;
+        this.patientMapper = patientMapper;
+    }
 
 
     public PatientDto ajouterPatient(PatientDto patientDto){
 
-        Patient entity = patientMapper.toEntity((patientDto));
+        Patient entity = patientMapper.toEntity(patientDto);
         Patient save = patientRepository.save(entity);
         return patientMapper.toDto(save);
 
