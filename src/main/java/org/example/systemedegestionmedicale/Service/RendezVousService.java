@@ -48,4 +48,8 @@ public class RendezVousService {
          return rendezVouMapper.toDto(saveRendezVou);
     }
 
+    public List<RendezVousDto> listerRendezVous(){
+        return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
+    }
+
 }

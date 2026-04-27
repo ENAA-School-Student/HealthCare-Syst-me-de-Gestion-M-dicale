@@ -6,6 +6,8 @@ import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Service.RendezVousService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/rendez-vous")
 public class RendezVousController {
@@ -27,5 +29,10 @@ public class RendezVousController {
     @PutMapping("/{id}/statut")
     public void annulerRendezVous(@PathVariable long id){
         rendezVousService.annulerRendezVous(id);
+    }
+
+    @GetMapping
+    public List<RendezVousDto> listerRendezVous(){
+        return rendezVousService.listerRendezVous();
     }
 }
