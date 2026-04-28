@@ -2,6 +2,7 @@ package org.example.systemedegestionmedicale.Mapper;
 
 
 import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouteDiagnosticDto;
+import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouterObservationsDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Models.DossierMedical;
 import org.mapstruct.Mapper;
@@ -21,6 +22,7 @@ public interface DossierMedicalMapper {
     DossierMedical toEntity(DossierMedicalDto dossierMedicalDto);
 
     DossierMedical toAjoutediagnostic(DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto);
+
 
     List<DossierMedicalDto> toDtoList(List<DossierMedical> dossierMedicals);
 }
