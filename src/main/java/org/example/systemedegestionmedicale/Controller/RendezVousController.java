@@ -35,4 +35,10 @@ public class RendezVousController {
     public List<RendezVousDto> listerRendezVous(){
         return rendezVousService.listerRendezVous();
     }
+
+    @GetMapping("/{id}/patient")
+    public RendezVousDto findPatientById(@PathVariable long id){
+        return rendezVousService.findPatientById(id);
+    }
+    
 }
