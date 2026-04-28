@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Controller;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.systemedegestionmedicale.Dto.PatientDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
@@ -19,12 +20,12 @@ public class PatientController {
     }
 
     @PostMapping
-    public PatientDto ajouterPatient(@RequestBody PatientDto patientDto){
+    public PatientDto ajouterPatient(@Valid @RequestBody PatientDto patientDto){
         return patientService.ajouterPatient(patientDto);
     }
 
     @PutMapping("/{id}")
-    public PatientDto modifierPatient(@PathVariable long id, PatientDto patientDto){
+    public PatientDto modifierPatient(@Valid @PathVariable long id, PatientDto patientDto){
         return patientService.modifierPatient(id,patientDto);
     }
 
