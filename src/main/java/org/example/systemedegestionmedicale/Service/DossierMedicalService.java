@@ -2,6 +2,7 @@ package org.example.systemedegestionmedicale.Service;
 
 
 import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouteDiagnosticDto;
+import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouterObservationsDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Mapper.DossierMedicalMapper;
 import org.example.systemedegestionmedicale.Models.DossierMedical;
@@ -36,5 +37,16 @@ public class DossierMedicalService {
 
         return dossierMedicalMapper.toDto(update);
     }
+
+    public DossierMedicalDto ajouterObservations(long id, DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto){
+        DossierMedical saveObservations = dossierMedicalRepository.findDossierMedicalByPatient_Id(id);
+
+        saveObservations.setObservation(dossierMedicalAjouterObservationsDto.getObservation());
+
+        DossierMedical update = dossierMedicalRepository.save(saveObservations);
+        return dossierMedicalMapper.toDto(update);
+    }
+
+
 
 }
