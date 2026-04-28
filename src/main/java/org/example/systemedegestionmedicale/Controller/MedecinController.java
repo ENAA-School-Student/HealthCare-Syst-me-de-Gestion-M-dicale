@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Controller;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,12 @@ public class MedecinController {
 
 
     @PostMapping
-    public MedecinDto ajouterMedecin(@RequestBody MedecinDto medecinDto){
+    public MedecinDto ajouterMedecin(@Valid @RequestBody MedecinDto medecinDto){
         return medecinService.ajouterMedecin(medecinDto);
     }
 
     @PutMapping("/{id}")
-    public MedecinDto ModifierMedecin(@PathVariable long id, @RequestBody MedecinDto medecinDto){
+    public MedecinDto ModifierMedecin(@Valid @PathVariable long id, @RequestBody MedecinDto medecinDto){
         return medecinService.ModifierMedecin(id, medecinDto);
     }
 

@@ -6,8 +6,11 @@ import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouterObservation
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Mapper.DossierMedicalMapper;
 import org.example.systemedegestionmedicale.Models.DossierMedical;
+import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.example.systemedegestionmedicale.Repository.DossierMedicalRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DossierMedicalService {
@@ -45,6 +48,11 @@ public class DossierMedicalService {
 
         DossierMedical update = dossierMedicalRepository.save(saveObservations);
         return dossierMedicalMapper.toDto(update);
+    }
+
+    public DossierMedicalDto ConsulterDossierMedical(long id){
+        DossierMedical dossierMedical =  dossierMedicalRepository.findById(id).orElse(null);
+        return dossierMedicalMapper.toDto(dossierMedical);
     }
 
 

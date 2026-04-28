@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Controller;
 
 
+import jakarta.validation.Valid;
 import org.example.systemedegestionmedicale.Dto.RendezVousDto;
 import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Service.RendezVousService;
@@ -18,16 +19,16 @@ public class RendezVousController {
     }
 
     @PostMapping
-    public RendezVousDto CreerRendezVous(@RequestBody RendezVousDto rendezVousDto){
+    public RendezVousDto CreerRendezVous(@Valid @RequestBody RendezVousDto rendezVousDto){
         return rendezVousService.creerRendezVous(rendezVousDto);
     }
 
     @PutMapping("/{id}")
-    public RendezVousDto modifierRendezVous(@PathVariable long id, @RequestBody RendezVousModifierDto rendezVousDto){
+    public RendezVousDto modifierRendezVous(@Valid @PathVariable long id, @RequestBody RendezVousModifierDto rendezVousDto){
         return rendezVousService.modifierRendezVous(id, rendezVousDto);
     }
     @PutMapping("/{id}/statut")
-    public void annulerRendezVous(@PathVariable long id){
+    public void annulerRendezVous(@Valid @PathVariable long id){
         rendezVousService.annulerRendezVous(id);
     }
 

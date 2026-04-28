@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Controller;
 
 
+import jakarta.validation.Valid;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouteDiagnosticDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouterObservationsDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
@@ -18,17 +19,21 @@ public class DossierMedicalController {
     }
 
     @PostMapping
-    public DossierMedicalDto CreerDossierMedical(@RequestBody DossierMedicalDto dossierMedicalDto){
+    public DossierMedicalDto CreerDossierMedical(@Valid @RequestBody DossierMedicalDto dossierMedicalDto){
         return dossierMedicalService.CreerDossierMedical(dossierMedicalDto);
     }
 
     @PutMapping("/{id}/diagnostic")
-    public DossierMedicalDto ajouteDiagnostic(@PathVariable long id, @RequestBody DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
+    public DossierMedicalDto ajouteDiagnostic(@Valid @PathVariable long id, @RequestBody DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
         return dossierMedicalService.ajouterDiagnostic(id, dossierMedicalAjouteDiagnosticDto);
     }
 
     @PutMapping("/{id}/observation")
-    public DossierMedicalDto ajouterObservations(@PathVariable long id, @RequestBody DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto){
+    public DossierMedicalDto ajouterObservations(@Valid @PathVariable long id, @RequestBody DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto){
         return dossierMedicalService.ajouterObservations(id, dossierMedicalAjouterObservationsDto);
+    }
+    @GetMapping("{id}")
+    public DossierMedicalDto ConsulterDossierMedical(@PathVariable long id){
+        return dossierMedicalService.ConsulterDossierMedical(id);
     }
 }
