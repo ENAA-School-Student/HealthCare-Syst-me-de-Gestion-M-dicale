@@ -52,4 +52,9 @@ public class RendezVousService {
         return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
     }
 
+    public RendezVousDto findPatientById(long id){
+        RendezVou findPatient = rendezVousRepository.findPatientById(id);
+        return rendezVouMapper.toDto(findPatient);
+    }
+
 }
