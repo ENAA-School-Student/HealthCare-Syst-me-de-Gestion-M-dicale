@@ -52,9 +52,14 @@ public class RendezVousService {
         return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
     }
 
-    public RendezVousDto findPatientById(long id){
-        RendezVou findPatient = rendezVousRepository.findPatientById(id);
-        return rendezVouMapper.toDto(findPatient);
+    public List<RendezVousDto> findPatientById(long id){
+        List<RendezVou> findPatient = rendezVousRepository.findRendezVouByPatient_Id(id);
+        return rendezVouMapper.toDtoList(findPatient);
+    }
+
+    public List<RendezVousDto> findMedecinById(long id){
+        List<RendezVou> findMedecin = rendezVousRepository.findRendezVouByMedecin_Id(id);
+        return rendezVouMapper.toDtoList(findMedecin);
     }
 
 }

@@ -4,8 +4,11 @@ import org.example.systemedegestionmedicale.Models.Patient;
 import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
 
-    RendezVou findPatientById(long id);
+    List<RendezVou> findRendezVouByPatient_Id(long id);
+    List<RendezVou> findRendezVouByMedecin_Id(long id);
 
 }
