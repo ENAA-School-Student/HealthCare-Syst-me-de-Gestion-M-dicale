@@ -1,7 +1,7 @@
 package org.example.systemedegestionmedicale.Service;
 
 
-import lombok.AllArgsConstructor;
+
 import org.example.systemedegestionmedicale.Dto.RendezVousDto;
 import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
@@ -61,5 +61,7 @@ public class RendezVousService {
         List<RendezVou> findMedecin = rendezVousRepository.findRendezVouByMedecin_Id(id);
         return rendezVouMapper.toDtoList(findMedecin);
     }
+
+
 
 }

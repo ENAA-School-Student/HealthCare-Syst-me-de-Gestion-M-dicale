@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Service;
 
 
+import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouteDiagnosticDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Mapper.DossierMedicalMapper;
 import org.example.systemedegestionmedicale.Models.DossierMedical;
@@ -23,6 +24,17 @@ public class DossierMedicalService {
         DossierMedical entity = dossierMedicalMapper.toEntity(dossierMedicalDto);
         DossierMedical saveDossier = dossierMedicalRepository.save(entity);
         return dossierMedicalMapper.toDto(saveDossier);
+    }
+
+    public DossierMedicalDto ajouterDiagnostic(long id, DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
+        DossierMedical entity = dossierMedicalMapper.toAjoutediagnostic(dossierMedicalAjouteDiagnosticDto);
+        DossierMedical saveDiagnostic = dossierMedicalRepository.findDossierMedicalByPatient_Id(id);
+
+        saveDiagnostic.setDiagnostic(entity.getDiagnostic());
+
+        DossierMedical update = dossierMedicalRepository.save(saveDiagnostic);
+
+        return dossierMedicalMapper.toDto(update);
     }
 
 }

@@ -1,6 +1,7 @@
 package org.example.systemedegestionmedicale.Controller;
 
 
+import org.example.systemedegestionmedicale.Dto.DossierMedicalAjouteDiagnosticDto;
 import org.example.systemedegestionmedicale.Dto.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Service.DossierMedicalService;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,10 @@ public class DossierMedicalController {
     @PostMapping
     public DossierMedicalDto CreerDossierMedical(@RequestBody DossierMedicalDto dossierMedicalDto){
         return dossierMedicalService.CreerDossierMedical(dossierMedicalDto);
+    }
+
+    @PutMapping("/{id}")
+    public DossierMedicalDto ajouteDiagnostic(@PathVariable long id, @RequestBody DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
+        return dossierMedicalService.ajouterDiagnostic(id, dossierMedicalAjouteDiagnosticDto);
     }
 }
