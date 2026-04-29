@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class DossierMedicalAjouteDiagnosticDto {
     @NotBlank(message = "diagnostic est obligatoire")
     private String diagnostic;
