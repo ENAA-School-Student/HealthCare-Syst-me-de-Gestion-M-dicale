@@ -31,7 +31,7 @@ public class DossierMedicalService {
     }
 
     public DossierMedicalDto ajouterDiagnostic(long id, DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
-        DossierMedical entity = dossierMedicalMapper.toAjoutediagnostic(dossierMedicalAjouteDiagnosticDto);
+        DossierMedical entity = dossierMedicalMapper.toAjoutediagnosticEntity(dossierMedicalAjouteDiagnosticDto);
         DossierMedical saveDiagnostic = dossierMedicalRepository.findDossierMedicalByPatient_Id(id);
 
         saveDiagnostic.setDiagnostic(entity.getDiagnostic());

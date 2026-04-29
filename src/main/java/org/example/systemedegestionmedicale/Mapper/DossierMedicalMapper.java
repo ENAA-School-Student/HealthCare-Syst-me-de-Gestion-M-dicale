@@ -21,7 +21,9 @@ public interface DossierMedicalMapper {
     @Mapping(source = "medecinId", target = "medecin.id")
     DossierMedical toEntity(DossierMedicalDto dossierMedicalDto);
 
-    DossierMedical toAjoutediagnostic(DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto);
+    DossierMedicalAjouteDiagnosticDto toAjoutediagnosticDto(DossierMedical dossierMedical);
+    DossierMedical toAjoutediagnosticEntity(DossierMedicalAjouteDiagnosticDto DossierMedicalAjouteDiagnosticDto);
+
 
 
     List<DossierMedicalDto> toDtoList(List<DossierMedical> dossierMedicals);

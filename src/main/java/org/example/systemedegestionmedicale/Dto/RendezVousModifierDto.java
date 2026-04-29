@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class RendezVousModifierDto {
     @NotNull(message = "Rendez Vous est obligatoire")
     @Future
