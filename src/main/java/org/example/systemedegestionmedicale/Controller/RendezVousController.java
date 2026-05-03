@@ -2,8 +2,9 @@ package org.example.systemedegestionmedicale.Controller;
 
 
 import jakarta.validation.Valid;
-import org.example.systemedegestionmedicale.Dto.RendezVousDto;
-import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
+import org.example.systemedegestionmedicale.Dto.request.RendezVousDto;
+import org.example.systemedegestionmedicale.Dto.request.RendezVousModifierDto;
+import org.example.systemedegestionmedicale.Dto.response.RendezVouResponseDto;
 import org.example.systemedegestionmedicale.Service.RendezVousService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,12 @@ public class RendezVousController {
     }
 
     @PostMapping
-    public RendezVousDto CreerRendezVous(@Valid @RequestBody RendezVousDto rendezVousDto){
+    public RendezVouResponseDto CreerRendezVous(@Valid @RequestBody RendezVousDto rendezVousDto){
         return rendezVousService.creerRendezVous(rendezVousDto);
     }
 
     @PutMapping("/{id}")
-    public RendezVousDto modifierRendezVous(@Valid @PathVariable long id, @RequestBody RendezVousModifierDto rendezVousDto){
+    public RendezVouResponseDto modifierRendezVous(@Valid @PathVariable long id, @RequestBody RendezVousModifierDto rendezVousDto){
         return rendezVousService.modifierRendezVous(id, rendezVousDto);
     }
     @PutMapping("/{id}/statut")
@@ -33,17 +34,17 @@ public class RendezVousController {
     }
 
     @GetMapping
-    public List<RendezVousDto> listerRendezVous(){
+    public List<RendezVouResponseDto> listerRendezVous(){
         return rendezVousService.listerRendezVous();
     }
 
     @GetMapping("/{id}/patient")
-    public List<RendezVousDto> findPatientById(@PathVariable long id){
+    public List<RendezVouResponseDto> findPatientById(@PathVariable long id){
         return rendezVousService.findPatientById(id);
     }
 
     @GetMapping("/{id}/medecin")
-    public List<RendezVousDto> findMedecinById(@PathVariable long id){
+    public List<RendezVouResponseDto> findMedecinById(@PathVariable long id){
         return rendezVousService.findMedecinById(id);
     }
     

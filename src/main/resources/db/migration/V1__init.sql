@@ -20,8 +20,7 @@ create table dossier_medical(
     diagnostic VARCHAR(20) not null ,
     observation varchar(20) not null ,
     date_creation date not null ,
-    patient_id BIGINT,
-    medecin_id BIGINT
+    patient_id BIGINT
 );
 
 create table rendez_vou(

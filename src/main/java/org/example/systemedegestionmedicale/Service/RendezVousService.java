@@ -2,8 +2,9 @@ package org.example.systemedegestionmedicale.Service;
 
 
 
-import org.example.systemedegestionmedicale.Dto.RendezVousDto;
-import org.example.systemedegestionmedicale.Dto.RendezVousModifierDto;
+import org.example.systemedegestionmedicale.Dto.request.RendezVousDto;
+import org.example.systemedegestionmedicale.Dto.request.RendezVousModifierDto;
+import org.example.systemedegestionmedicale.Dto.response.RendezVouResponseDto;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
 import org.example.systemedegestionmedicale.Mapper.RendezVouMapper;
 import org.example.systemedegestionmedicale.Models.RendezVou;
@@ -24,40 +25,39 @@ public class RendezVousService {
     }
 
 
-    public RendezVousDto creerRendezVous(RendezVousDto rendezVousDto){
+    public RendezVouResponseDto creerRendezVous(RendezVousDto rendezVousDto){
         RendezVou rendezVou = rendezVouMapper.toEntity(rendezVousDto);
         RendezVou saveRendezVou = rendezVousRepository.save(rendezVou);
-        return rendezVouMapper.toDto(saveRendezVou);
+        return rendezVouMapper.toResponseDto(saveRendezVou);
     }
 
-    public RendezVousDto modifierRendezVous(long id, RendezVousModifierDto RendezVousModifierDto){
-        RendezVou rendezVou = rendezVouMapper.toModifier(RendezVousModifierDto);
+    public RendezVouResponseDto modifierRendezVous(long id, RendezVousModifierDto rendezVousModifierDto){
         RendezVou saveRendezVou = rendezVousRepository.findById(id).orElse(null);
 
-        saveRendezVou.setDateRendezVous(rendezVou.getDateRendezVous());
-        saveRendezVou.setStatusRendezVou(rendezVou.getStatusRendezVou());
+        saveRendezVou.setDateRendezVous(rendezVousModifierDto.getDateRendezVous());
+        saveRendezVou.setStatusRendezVou(rendezVousModifierDto.getStatusRendezVou());
 
         RendezVou update = rendezVousRepository.save(saveRendezVou);
-        return rendezVouMapper.toDto(update);
+        return rendezVouMapper.toResponseDto(update);
     }
 
-    public RendezVousDto annulerRendezVous(long id){
+    public RendezVouResponseDto annulerRendezVous(long id){
         RendezVou findRendezVous = rendezVousRepository.findById(id).orElse(null);
          findRendezVous.setStatusRendezVou(StatusRendezVou.annule);
          RendezVou saveRendezVou = rendezVousRepository.save(findRendezVous);
-         return rendezVouMapper.toDto(saveRendezVou);
+         return rendezVouMapper.toResponseDto(saveRendezVou);
     }
 
-    public List<RendezVousDto> listerRendezVous(){
+    public List<RendezVouResponseDto> listerRendezVous(){
         return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
     }
 
-    public List<RendezVousDto> findPatientById(long id){
+    public List<RendezVouResponseDto> findPatientById(long id){
         List<RendezVou> findPatient = rendezVousRepository.findRendezVouByPatient_Id(id);
         return rendezVouMapper.toDtoList(findPatient);
     }
 
-    public List<RendezVousDto> findMedecinById(long id){
+    public List<RendezVouResponseDto> findMedecinById(long id){
         List<RendezVou> findMedecin = rendezVousRepository.findRendezVouByMedecin_Id(id);
         return rendezVouMapper.toDtoList(findMedecin);
     }

@@ -1,13 +1,15 @@
 package org.example.systemedegestionmedicale.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "dossier_medical")
-@Data
+@Getter
+@Setter
 public class DossierMedical {
 
     @Id
@@ -21,8 +23,4 @@ public class DossierMedical {
     @OneToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
-
-    @ManyToOne
-    @JoinColumn(name = "medecin_id")
-    private Medecin medecin;
 }

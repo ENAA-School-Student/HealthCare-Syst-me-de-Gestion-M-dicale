@@ -1,9 +1,8 @@
-package org.example.systemedegestionmedicale.Dto;
+package org.example.systemedegestionmedicale.Dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +18,4 @@ public class DossierMedicalDto {
     private LocalDate dateCreation;
     @NotNull(message = "patient est obligatoire")
     private long patientId;
-    @NotNull(message = "medecin est obligatoire")
-    private long medecinId;
 }

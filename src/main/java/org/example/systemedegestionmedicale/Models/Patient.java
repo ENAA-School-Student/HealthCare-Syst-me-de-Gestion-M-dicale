@@ -2,14 +2,16 @@ package org.example.systemedegestionmedicale.Models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "patient")
-@Data
+@Getter
+@Setter
 public class Patient {
 
     @Id
