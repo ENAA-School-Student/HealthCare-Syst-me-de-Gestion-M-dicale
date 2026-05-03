@@ -1,9 +1,9 @@
 package org.example.systemedegestionmedicale.Service;
 
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.example.systemedegestionmedicale.Dto.PatientDto;
+
+import org.example.systemedegestionmedicale.Dto.request.PatientDto;
+import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Mapper.PatientMapper;
 import org.example.systemedegestionmedicale.Models.Patient;
 import org.example.systemedegestionmedicale.Repository.PatientRepository;
@@ -23,39 +23,37 @@ public class PatientService {
     }
 
 
-    public PatientDto ajouterPatient(PatientDto patientDto){
-
+    public PatientResponseDto ajouterPatient(PatientDto patientDto){
         Patient entity = patientMapper.toEntity(patientDto);
         Patient save = patientRepository.save(entity);
-        return patientMapper.toDto(save);
+        return patientMapper.toResponseDto(save);
 
     }
 
-    public PatientDto modifierPatient(long id, PatientDto patientDto){
-        Patient entity = patientMapper.toEntity(patientDto);
+    public PatientResponseDto modifierPatient(long id, PatientDto patientDto){
         Patient saveId = patientRepository.findById(id).orElse(null);
 
-        saveId.setNom(entity.getNom());
-        saveId.setPrenom(entity.getPrenom());
-        saveId.setEmail(entity.getEmail());
-        saveId.setTelephone(entity.getTelephone());
-        saveId.setDateNaissance(entity.getDateNaissance());
+        saveId.setNom(patientDto.getNom());
+        saveId.setPrenom(patientDto.getPrenom());
+        saveId.setEmail(patientDto.getEmail());
+        saveId.setTelephone(patientDto.getTelephone());
+        saveId.setDateNaissance(patientDto.getDateNaissance());
 
         Patient update = patientRepository.save(saveId);
-        return patientMapper.toDto(update);
+        return patientMapper.toResponseDto(update);
     }
 
     public void supprimerPatient(long id){
         patientRepository.deleteById(id);
     }
 
-    public List<PatientDto> listerPatients(){
+    public List<PatientResponseDto> listerPatients(){
         return patientMapper.todtolist(patientRepository.findAll());
     }
 
-    public PatientDto consulterPatient(long id){
+    public PatientResponseDto consulterPatient(long id){
        Patient findPatient = patientRepository.findById(id).orElse(null);
-       return patientMapper.toDto(findPatient);
+       return patientMapper.toResponseDto(findPatient);
     }
 
 }

@@ -1,7 +1,8 @@
 package org.example.systemedegestionmedicale.serviceTest;
 
 
-import org.example.systemedegestionmedicale.Dto.MedecinDto;
+import org.example.systemedegestionmedicale.Dto.request.MedecinDto;
+import org.example.systemedegestionmedicale.Dto.response.MedecinResponseDto;
 import org.example.systemedegestionmedicale.Mapper.MedecinMapper;
 import org.example.systemedegestionmedicale.Models.Medecin;
 import org.example.systemedegestionmedicale.Repository.MedecinRepository;
@@ -36,25 +37,25 @@ public class MedecinTest {
 
     @Test
     void ajouterMedecin(){
-        MedecinDto medecinDto1 = medecinService.ajouterMedecin(medecinDto);
+        MedecinResponseDto medecinDto1 = medecinService.ajouterMedecin(medecinDto);
         assertNotNull(medecinDto1);
         assertEquals(medecinDto.getEmail(), medecinDto1.getEmail());
     }
 
     @Test
     void ModifierMedecin(){
-        Medecin medecinId = medecinMapper.toEntity(medecinDto);
-        medecinId.setNom("Zakaria");
-        medecinRepository.save(medecinId);
-        MedecinDto medecinDtoM = medecinService.ModifierMedecin(medecinId.getId(),medecinDto );
-        assertEquals(medecinId.getNom(), medecinDtoM.getNom());
+        MedecinResponseDto medecinId = medecinService.ajouterMedecin(medecinDto);
+        MedecinDto update = new  MedecinDto();
+        update.setNom("Zakaria");
+        MedecinResponseDto medecinDtoM = medecinService.ModifierMedecin(medecinId.getId(),update );
+        assertEquals("Zakaria", medecinDtoM.getNom());
 
     }
 
     @Test
     void supprimerMedecin(){
-        Medecin medecin = medecinMapper.toEntity(medecinDto);
-        medecinService.supprimerMedecin(medecin.getId());
-        assertTrue(medecinRepository.findById(medecin.getId()).isEmpty());
+        MedecinResponseDto save = medecinService.ajouterMedecin(medecinDto);
+        medecinService.supprimerMedecin(save.getId());
+        assertTrue(medecinRepository.findById(save.getId()).isEmpty());
     }
 }

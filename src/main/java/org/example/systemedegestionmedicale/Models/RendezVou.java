@@ -2,14 +2,16 @@ package org.example.systemedegestionmedicale.Models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "rendez_vou")
-@Data
+@Getter
+@Setter
 public class RendezVou {
 
     @Id

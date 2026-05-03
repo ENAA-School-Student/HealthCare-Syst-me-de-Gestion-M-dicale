@@ -1,4 +1,4 @@
-package org.example.systemedegestionmedicale.Dto;
+package org.example.systemedegestionmedicale.Dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;

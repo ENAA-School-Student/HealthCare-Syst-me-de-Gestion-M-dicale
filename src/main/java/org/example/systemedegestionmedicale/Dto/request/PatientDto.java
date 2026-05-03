@@ -1,7 +1,6 @@
-package org.example.systemedegestionmedicale.Dto;
+package org.example.systemedegestionmedicale.Dto.request;
 
 import jakarta.validation.constraints.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

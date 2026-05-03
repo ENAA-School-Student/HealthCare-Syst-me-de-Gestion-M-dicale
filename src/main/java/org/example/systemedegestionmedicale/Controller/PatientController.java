@@ -2,8 +2,8 @@ package org.example.systemedegestionmedicale.Controller;
 
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.example.systemedegestionmedicale.Dto.PatientDto;
+import org.example.systemedegestionmedicale.Dto.request.PatientDto;
+import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +20,12 @@ public class PatientController {
     }
 
     @PostMapping
-    public PatientDto ajouterPatient(@Valid @RequestBody PatientDto patientDto){
+    public PatientResponseDto ajouterPatient(@Valid @RequestBody PatientDto patientDto){
         return patientService.ajouterPatient(patientDto);
     }
 
     @PutMapping("/{id}")
-    public PatientDto modifierPatient(@Valid @PathVariable long id, PatientDto patientDto){
+    public PatientResponseDto modifierPatient(@Valid @PathVariable long id, PatientDto patientDto){
         return patientService.modifierPatient(id,patientDto);
     }
 
@@ -35,12 +35,12 @@ public class PatientController {
     }
 
     @GetMapping
-    public List<PatientDto> listerPatients(){
+    public List<PatientResponseDto> listerPatients(){
       return  patientService.listerPatients();
     }
 
     @GetMapping("/{id}")
-    public PatientDto consulterPatient(@PathVariable long id){
+    public PatientResponseDto consulterPatient(@PathVariable long id){
         return patientService.consulterPatient(id);
     }
 
