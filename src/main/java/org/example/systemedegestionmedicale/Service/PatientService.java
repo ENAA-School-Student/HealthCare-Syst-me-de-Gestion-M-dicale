@@ -35,7 +35,6 @@ public class PatientService {
 
         saveId.setNom(patientDto.getNom());
         saveId.setPrenom(patientDto.getPrenom());
-        saveId.setEmail(patientDto.getEmail());
         saveId.setTelephone(patientDto.getTelephone());
         saveId.setDateNaissance(patientDto.getDateNaissance());
 

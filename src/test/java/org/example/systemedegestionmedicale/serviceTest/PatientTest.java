@@ -33,7 +33,6 @@ public class PatientTest {
         patient.setTelephone("0607523087");
         patient.setNom("Outla");
         patient.setPrenom("Zakaria");
-        patient.setEmail("Zakariaa@gmail.com");
         patient.setDateNaissance(LocalDate.of(1999,10,07));
     }
 

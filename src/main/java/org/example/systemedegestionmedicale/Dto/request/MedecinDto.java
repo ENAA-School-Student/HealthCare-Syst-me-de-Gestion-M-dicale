@@ -15,9 +15,6 @@ public class MedecinDto {
     private String nom;
     @NotBlank(message = "Le specialite est obligatoire")
     private String specialite;
-    @NotBlank
-    @Email(message = "Email est obligatoire")
-    private String email;
     @Size(min = 10, max=10, message = "numero doit étre mois de 10")
     private String telephone;
 }

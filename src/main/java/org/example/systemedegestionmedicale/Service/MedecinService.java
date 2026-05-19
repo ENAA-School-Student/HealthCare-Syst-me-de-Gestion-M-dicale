@@ -34,7 +34,6 @@ public class MedecinService {
 
         saveId.setNom(medecinDto.getNom());
         saveId.setSpecialite(medecinDto.getSpecialite());
-        saveId.setEmail(medecinDto.getEmail());
         saveId.setTelephone(medecinDto.getTelephone());
         Medecin update =  medecinRepository.save(saveId);
         return medecinMapper.toResponseDto(update);

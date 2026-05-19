@@ -19,12 +19,15 @@ public class Patient {
     private long id;
     private String nom;
     private String prenom;
-    private String email;
     private String Telephone;
     @Column(name = "date_naissance")
     private LocalDate dateNaissance;
 
     @OneToMany(mappedBy = "patient")
     private List<RendezVou> rendezVous;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
