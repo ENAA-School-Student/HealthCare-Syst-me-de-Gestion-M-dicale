@@ -42,14 +42,12 @@ public class RendezVousTest {
        Patient patient = new Patient();
        patient.setNom("outla");
        patient.setPrenom("zakaria");
-       patient.setEmail("zakaria@gmail.com");
        patient.setTelephone("0608095241");
        patient.setDateNaissance(LocalDate.of(1999,07,10));
        patient = patientRepository.save(patient);
 
        Medecin medecin = new Medecin();
        medecin.setNom("dr. zakaria");
-       medecin.setEmail("zakaria@gmail.com");
        medecin.setSpecialite("dentaire");
        medecin.setTelephone("0608074120");
        medecin = medecinRepository.save(medecin);

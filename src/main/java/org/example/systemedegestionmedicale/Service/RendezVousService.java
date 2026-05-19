@@ -7,7 +7,10 @@ import org.example.systemedegestionmedicale.Dto.request.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Dto.response.RendezVouResponseDto;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
 import org.example.systemedegestionmedicale.Mapper.RendezVouMapper;
+import org.example.systemedegestionmedicale.Models.Patient;
 import org.example.systemedegestionmedicale.Models.RendezVou;
+import org.example.systemedegestionmedicale.Repository.MedecinRepository;
+import org.example.systemedegestionmedicale.Repository.PatientRepository;
 import org.example.systemedegestionmedicale.Repository.RendezVousRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ public class RendezVousService {
 
     private RendezVousRepository rendezVousRepository;
     private RendezVouMapper rendezVouMapper;
+    private PatientRepository patientRepository;
+    private MedecinRepository medecinRepository;
 
     public RendezVousService(RendezVousRepository rendezVousRepository, RendezVouMapper rendezVouMapper){
         this.rendezVousRepository = rendezVousRepository;
@@ -26,6 +31,11 @@ public class RendezVousService {
 
 
     public RendezVouResponseDto creerRendezVous(RendezVousDto rendezVousDto){
+
+       if(!patientRepository.existsById(rendezVousDto.getPatientId())){
+           throw new RuntimeException("patinet ne exite pas");
+       }
+
         RendezVou rendezVou = rendezVouMapper.toEntity(rendezVousDto);
         RendezVou saveRendezVou = rendezVousRepository.save(rendezVou);
         return rendezVouMapper.toResponseDto(saveRendezVou);

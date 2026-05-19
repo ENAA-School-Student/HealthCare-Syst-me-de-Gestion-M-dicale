@@ -16,10 +16,13 @@ public class Medecin {
     private long id;
     private String nom;
     private String specialite;
-    private String email;
     private String telephone;
 
 
     @OneToMany(mappedBy = "medecin")
     private List<RendezVou> rendezVous;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -10,4 +10,5 @@ public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
     List<RendezVou> findRendezVouByPatient_Id(long id);
     List<RendezVou> findRendezVouByMedecin_Id(long id);
 
+    long id(long id);
 }

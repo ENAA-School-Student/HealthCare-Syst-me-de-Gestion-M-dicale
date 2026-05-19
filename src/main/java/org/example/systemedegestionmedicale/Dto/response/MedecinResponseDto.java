@@ -10,6 +10,5 @@ public class MedecinResponseDto {
     private long id;
     private String nom;
     private String specialite;
-    private String email;
     private String telephone;
 }
