@@ -6,8 +6,10 @@ import org.example.systemedegestionmedicale.Dto.request.RendezVousDto;
 import org.example.systemedegestionmedicale.Dto.request.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Dto.response.RendezVouResponseDto;
 import org.example.systemedegestionmedicale.Service.RendezVousService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,6 +48,17 @@ public class RendezVousController {
     @GetMapping("/{id}/medecin")
     public List<RendezVouResponseDto> findMedecinById(@PathVariable long id){
         return rendezVousService.findMedecinById(id);
+    }
+
+    @GetMapping("/tri_rendez_vous_par_date")
+    public Page<RendezVouResponseDto> triRendezVousParDate(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam Date dateRendezVous
+
+            ){
+        Page<RendezVouResponseDto> rendezVous = rendezVousService.triRendezVousParDate(page,size,dateRendezVous);
+        return rendezVous;
     }
     
 }

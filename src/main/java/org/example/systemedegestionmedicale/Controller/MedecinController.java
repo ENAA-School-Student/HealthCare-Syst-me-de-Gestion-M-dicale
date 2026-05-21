@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.example.systemedegestionmedicale.Dto.request.MedecinDto;
 import org.example.systemedegestionmedicale.Dto.response.MedecinResponseDto;
 import org.example.systemedegestionmedicale.Service.MedecinService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,18 @@ public class MedecinController {
     public List<MedecinResponseDto> listerMedecins(){
         return medecinService.listerMedecins();
     }
+
+    @GetMapping("/tri_medecin_par_specialite")
+    public Page<MedecinResponseDto> triMedecinParSpecialite(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam String specialite
+    ){
+      Page<MedecinResponseDto> medecins = medecinService.triMedecinParSpecialite(specialite,page,size);
+      return medecins;
+    }
+
+
 
 
 }

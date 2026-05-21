@@ -12,8 +12,12 @@ import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.example.systemedegestionmedicale.Repository.MedecinRepository;
 import org.example.systemedegestionmedicale.Repository.PatientRepository;
 import org.example.systemedegestionmedicale.Repository.RendezVousRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -72,6 +76,12 @@ public class RendezVousService {
         return rendezVouMapper.toDtoList(findMedecin);
     }
 
+
+    public Page<RendezVouResponseDto> triRendezVousParDate(int size, int page, Date dateRendezVous){
+        Pageable pageable = PageRequest.of(size, page);
+        Page<RendezVou> rendezVous = rendezVousRepository.findAllByOrderByDateRendezVousDesc(pageable);
+        return rendezVous.map(rendezVouMapper::toResponseDto);
+    }
 
 
 }

@@ -3,7 +3,9 @@ package org.example.systemedegestionmedicale.Models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.systemedegestionmedicale.Enums.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -23,10 +25,12 @@ public class User implements UserDetails{
     private String username;
     private String email;
     private String password ;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name().toUpperCase()));
     }
 
     @Override
@@ -48,10 +52,4 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
-
-    @OneToOne(mappedBy = "user")
-    private Patient patient;
-
-    @OneToOne(mappedBy = "user")
-    private Medecin medecin;
 }

@@ -7,6 +7,9 @@ import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Mapper.PatientMapper;
 import org.example.systemedegestionmedicale.Models.Patient;
 import org.example.systemedegestionmedicale.Repository.PatientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +56,12 @@ public class PatientService {
     public PatientResponseDto consulterPatient(long id){
        Patient findPatient = patientRepository.findById(id).orElse(null);
        return patientMapper.toResponseDto(findPatient);
+    }
+
+    public Page<PatientResponseDto> triPatientParNom(int size, int page){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Patient> patients = patientRepository.findAllByOrderByNomDesc(pageable);
+        return patients.map(patientMapper::toResponseDto);
     }
 
 }

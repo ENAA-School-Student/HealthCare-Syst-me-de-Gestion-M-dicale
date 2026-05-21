@@ -6,6 +6,9 @@ import org.example.systemedegestionmedicale.Dto.response.MedecinResponseDto;
 import org.example.systemedegestionmedicale.Mapper.MedecinMapper;
 import org.example.systemedegestionmedicale.Models.Medecin;
 import org.example.systemedegestionmedicale.Repository.MedecinRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +48,12 @@ public class MedecinService {
 
     public List<MedecinResponseDto> listerMedecins(){
         return medecinMapper.toDtoList(medecinRepository.findAll());
+    }
+
+    public Page<MedecinResponseDto> triMedecinParSpecialite(String specialite, int size, int page){
+        Pageable pageable = PageRequest.of(size, page);
+        Page<Medecin> medecins = medecinRepository.findAllByOrderBySpecialiteDesc(specialite,pageable);
+        return medecins.map(medecinMapper::toResponseDto);
+
     }
 }

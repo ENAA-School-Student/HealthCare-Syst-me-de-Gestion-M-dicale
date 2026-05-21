@@ -1,8 +1,11 @@
 package org.example.systemedegestionmedicale.Repository;
 
 import org.example.systemedegestionmedicale.Models.RendezVou;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
@@ -11,4 +14,7 @@ public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
     List<RendezVou> findRendezVouByMedecin_Id(long id);
 
     long id(long id);
+
+    Page<RendezVou> findAllByOrderByDateRendezVousDesc(Pageable pageable);
+
 }
