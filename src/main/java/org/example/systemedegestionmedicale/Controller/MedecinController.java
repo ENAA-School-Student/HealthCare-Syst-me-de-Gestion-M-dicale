@@ -41,6 +41,7 @@ public class MedecinController {
         return medecinService.listerMedecins();
     }
 
+
     @GetMapping("/tri_medecin_par_specialite")
     public Page<MedecinResponseDto> triMedecinParSpecialite(
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -49,6 +50,14 @@ public class MedecinController {
     ){
       Page<MedecinResponseDto> medecins = medecinService.triMedecinParSpecialite(specialite,page,size);
       return medecins;
+    }
+
+    @GetMapping("/recherche-medecin-par-specialite")
+    public Page<MedecinResponseDto> rechercheMedecinParSpecialite(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                  @RequestParam(value = "size", defaultValue = "20") int size,
+                                                                  @RequestParam String specialite){
+        Page<MedecinResponseDto> medecins = medecinService.rechercheMedecinParSpecialite(specialite,page,size);
+        return medecins;
     }
 
 

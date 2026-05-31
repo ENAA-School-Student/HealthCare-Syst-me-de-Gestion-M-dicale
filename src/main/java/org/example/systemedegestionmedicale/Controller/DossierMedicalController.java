@@ -7,6 +7,7 @@ import org.example.systemedegestionmedicale.Dto.request.DossierMedicalAjouterObs
 import org.example.systemedegestionmedicale.Dto.request.DossierMedicalDto;
 import org.example.systemedegestionmedicale.Dto.response.DossierMedicalResponseDto;
 import org.example.systemedegestionmedicale.Service.DossierMedicalService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,15 +25,19 @@ public class DossierMedicalController {
         return dossierMedicalService.CreerDossierMedical(dossierMedicalDto);
     }
 
+    @PreAuthorize("hasRole('MEDECIN')")
     @PutMapping("/{id}/diagnostic")
     public DossierMedicalResponseDto ajouteDiagnostic(@Valid @PathVariable long id, @RequestBody DossierMedicalAjouteDiagnosticDto dossierMedicalAjouteDiagnosticDto){
         return dossierMedicalService.ajouterDiagnostic(id, dossierMedicalAjouteDiagnosticDto);
     }
 
+    @PreAuthorize("hasRole('MEDECIN')")
     @PutMapping("/{id}/observation")
     public DossierMedicalResponseDto ajouterObservations(@Valid @PathVariable long id, @RequestBody DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto){
         return dossierMedicalService.ajouterObservations(id, dossierMedicalAjouterObservationsDto);
     }
+
+    @PreAuthorize("hasAnyRole('MEDECIN','PATIENT')")
     @GetMapping("{id}")
     public DossierMedicalResponseDto ConsulterDossierMedical(@PathVariable long id){
         return dossierMedicalService.ConsulterDossierMedical(id);

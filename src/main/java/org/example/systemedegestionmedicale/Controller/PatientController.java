@@ -6,6 +6,7 @@ import org.example.systemedegestionmedicale.Dto.request.PatientDto;
 import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class PatientController {
         return patientService.ajouterPatient(patientDto);
     }
 
+    @PreAuthorize("hasRole('PATIENT')")
     @PutMapping("/{id}")
     public PatientResponseDto modifierPatient(@Valid @PathVariable long id, PatientDto patientDto){
         return patientService.modifierPatient(id,patientDto);
@@ -40,16 +42,26 @@ public class PatientController {
       return  patientService.listerPatients();
     }
 
+
+    @PreAuthorize("hasRole('PATIENT')")
     @GetMapping("/{id}")
     public PatientResponseDto consulterPatient(@PathVariable long id){
         return patientService.consulterPatient(id);
     }
 
-    @GetMapping("/tri_patient_par_nom")
+    @GetMapping("/tri-patient-par-nom")
     public Page<PatientResponseDto> triPatientParNom(@RequestParam(value ="page", defaultValue = "0") int page,
                                                      @RequestParam(value = "size", defaultValue = "20") int size
                                                      ){
         Page<PatientResponseDto> patients = patientService.triPatientParNom(size,page);
+        return patients;
+    }
+
+    @GetMapping("/recherche-patient-par-nom")
+    public Page<PatientResponseDto> recherchePatientParNom(@RequestParam(value = "page", defaultValue = "0")int page,
+                                                           @RequestParam(value = "size", defaultValue = "20")int size,
+                                                           @RequestParam String nom){
+        Page<PatientResponseDto> patients = patientService.recherchePatientParNom(nom,size, page);
         return patients;
     }
 

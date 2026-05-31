@@ -64,4 +64,10 @@ public class PatientService {
         return patients.map(patientMapper::toResponseDto);
     }
 
+    public Page<PatientResponseDto> recherchePatientParNom(String nom, int size, int page){
+        Pageable pageable = PageRequest.of(size, page);
+        Page<Patient> patients = patientRepository.findByNom(nom, pageable);
+        return patients.map(patientMapper::toResponseDto);
+    }
+
 }

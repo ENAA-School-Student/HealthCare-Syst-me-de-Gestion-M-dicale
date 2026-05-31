@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MedecinRepository extends JpaRepository<Medecin, Long> {
 
     Page<Medecin> findAllByOrderBySpecialiteDesc(String specialite, Pageable pageable);
+    Page<Medecin> findBySpecialite(String specialite, Pageable pageable);
 }

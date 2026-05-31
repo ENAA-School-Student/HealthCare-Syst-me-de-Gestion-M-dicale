@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -77,11 +78,18 @@ public class RendezVousService {
     }
 
 
-    public Page<RendezVouResponseDto> triRendezVousParDate(int size, int page, Date dateRendezVous){
+    public Page<RendezVouResponseDto> triRendezVousParDate(LocalDate date ,int size, int page){
         Pageable pageable = PageRequest.of(size, page);
-        Page<RendezVou> rendezVous = rendezVousRepository.findAllByOrderByDateRendezVousDesc(pageable);
+        Page<RendezVou> rendezVous = rendezVousRepository.findAllByOrderByDateRendezVousDesc(date, pageable);
         return rendezVous.map(rendezVouMapper::toResponseDto);
     }
+
+    public Page<RendezVouResponseDto> rechercheRendezVousParStatut(StatusRendezVou status, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<RendezVou> rendezVous = rendezVousRepository.findBystatus_rendez_vou(status, pageable);
+        return rendezVous.map(rendezVouMapper::toResponseDto);
+    }
+
 
 
 }
