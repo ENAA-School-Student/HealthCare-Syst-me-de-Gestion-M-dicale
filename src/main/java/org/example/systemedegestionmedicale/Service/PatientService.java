@@ -10,6 +10,9 @@ import org.example.systemedegestionmedicale.Repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +36,12 @@ public class PatientService {
 
     }
 
-    public PatientResponseDto modifierPatient(long id, PatientDto patientDto){
+    public PatientResponseDto modifierPatient(long id, PatientDto patientDto, String userConnecte){
         Patient saveId = patientRepository.findById(id).orElse(null);
+
+        if (!saveId.getUser().getUsername().equals(userConnecte)) {
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à modifier ce profil.");
+        }
 
         saveId.setNom(patientDto.getNom());
         saveId.setPrenom(patientDto.getPrenom());
@@ -53,11 +60,23 @@ public class PatientService {
         return patientMapper.todtolist(patientRepository.findAll());
     }
 
-    public PatientResponseDto consulterPatient(long id){
-       Patient findPatient = patientRepository.findById(id).orElse(null);
-       return patientMapper.toResponseDto(findPatient);
-    }
+    public PatientResponseDto consulterPatient(long id, String userConnecte) {
 
+        Patient findPatient = patientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invalid id"));
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().toUpperCase().contains("ADMIN"));
+
+        boolean isMoulLeCompte = findPatient.getUser().getUsername().equals(userConnecte);
+
+        if (!isMoulLeCompte && !isAdmin) {
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à consulter ces données.");
+        }
+
+        return patientMapper.toResponseDto(findPatient);
+    }
     public Page<PatientResponseDto> triPatientParNom(int size, int page){
         Pageable pageable = PageRequest.of(page, size);
         Page<Patient> patients = patientRepository.findAllByOrderByNomDesc(pageable);

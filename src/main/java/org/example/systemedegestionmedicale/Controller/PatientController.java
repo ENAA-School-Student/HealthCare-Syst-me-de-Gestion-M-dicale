@@ -7,6 +7,7 @@ import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,27 +29,34 @@ public class PatientController {
 
     @PreAuthorize("hasRole('PATIENT')")
     @PutMapping("/{id}")
-    public PatientResponseDto modifierPatient(@Valid @PathVariable long id, PatientDto patientDto){
-        return patientService.modifierPatient(id,patientDto);
+    public PatientResponseDto modifierPatient(@Valid @PathVariable long id,@RequestBody PatientDto patientDto, Authentication authentication){
+        String userConnecte = authentication.getName();
+        return patientService.modifierPatient(id,patientDto, userConnecte);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void supprimerPatient(@PathVariable long id){
         patientService.supprimerPatient(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/patient")
     public List<PatientResponseDto> listerPatients(){
       return  patientService.listerPatients();
     }
 
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyRole('PATIENT', 'ADMIN')")
     @GetMapping("/{id}")
-    public PatientResponseDto consulterPatient(@PathVariable long id){
-        return patientService.consulterPatient(id);
+    public PatientResponseDto consulterPatient(@PathVariable long id, Authentication authentication){
+
+        String userConnecte = authentication.getName();
+
+        return patientService.consulterPatient(id, userConnecte);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/tri-patient-par-nom")
     public Page<PatientResponseDto> triPatientParNom(@RequestParam(value ="page", defaultValue = "0") int page,
                                                      @RequestParam(value = "size", defaultValue = "20") int size
@@ -57,6 +65,8 @@ public class PatientController {
         return patients;
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/recherche-patient-par-nom")
     public Page<PatientResponseDto> recherchePatientParNom(@RequestParam(value = "page", defaultValue = "0")int page,
                                                            @RequestParam(value = "size", defaultValue = "20")int size,

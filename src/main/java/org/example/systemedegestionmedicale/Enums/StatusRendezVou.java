@@ -1,5 +1,6 @@
 package org.example.systemedegestionmedicale.Enums;
 
 public enum StatusRendezVou {
-    en_attend, confirme, annule
+    EN_ATTENTE, CONFIRME,
+    ANNULE
 }

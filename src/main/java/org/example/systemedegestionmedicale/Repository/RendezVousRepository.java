@@ -18,7 +18,7 @@ public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
 
     Page<RendezVou> findAllByOrderByDateRendezVousDesc(LocalDate date, Pageable pageable);
 
-    Page<RendezVou> findBystatus_rendez_vou(StatusRendezVou status, Pageable pageable);
+    Page<RendezVou> findByStatusRendezVou(StatusRendezVou status, Pageable pageable);
 
 
 }

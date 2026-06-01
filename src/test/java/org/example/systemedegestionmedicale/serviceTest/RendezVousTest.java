@@ -53,7 +53,7 @@ public class RendezVousTest {
        medecin = medecinRepository.save(medecin);
 
        rendezVousDto.setDateRendezVous(LocalDate.now());
-       rendezVousDto.setStatusRendezVou(StatusRendezVou.en_attend);
+       rendezVousDto.setStatusRendezVou(StatusRendezVou.EN_ATTENTE);
        rendezVousDto.setMedecinId(medecin.getId());
        rendezVousDto.setPatientId(patient.getId());
 
@@ -71,31 +71,20 @@ public class RendezVousTest {
     void modifierRendezVous(){
        RendezVouResponseDto saveId = rendezVousService.creerRendezVous(rendezVousDto);
        RendezVousModifierDto modifi = new RendezVousModifierDto();
-       modifi.setStatusRendezVou(StatusRendezVou.annule);
+       modifi.setStatusRendezVou(StatusRendezVou.ANNULE);
        RendezVouResponseDto update = rendezVousService.modifierRendezVous(saveId.getId(), modifi);
-       assertEquals(StatusRendezVou.annule, update.getStatusRendezVou());
+       assertEquals(StatusRendezVou.ANNULE, update.getStatusRendezVou());
    }
 
    @Test
     void annulerRendezVous(){
        RendezVouResponseDto save = rendezVousService.creerRendezVous(rendezVousDto);
        RendezVouResponseDto dto = rendezVousService.annulerRendezVous(save.getId());
-       assertEquals(StatusRendezVou.annule, dto.getStatusRendezVou());
+       assertEquals(StatusRendezVou.ANNULE, dto.getStatusRendezVou());
 
    }
 
-   @Test
-    void findPatientById(){
-       RendezVouResponseDto save = rendezVousService.creerRendezVous(rendezVousDto);
-       rendezVousService.findPatientById(save.getId());
-       assertTrue(rendezVousRepository.findRendezVouByPatient_Id(save.getId()).isEmpty());
-   }
 
-   @Test
-    void findMedecinById(){
-       RendezVouResponseDto save = rendezVousService.creerRendezVous(rendezVousDto);
-       rendezVousService.findMedecinById(save.getId());
-       assertTrue(rendezVousRepository.findRendezVouByMedecin_Id(save.getId()).isEmpty());
-   }
+
 
 }

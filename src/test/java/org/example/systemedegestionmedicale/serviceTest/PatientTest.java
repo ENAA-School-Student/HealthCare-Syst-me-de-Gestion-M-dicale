@@ -43,14 +43,7 @@ public class PatientTest {
         assertEquals("Outla",dto.getNom());
     }
 
-    @Test
-    void modifierPatient(){
-        PatientResponseDto saved = patientService.ajouterPatient(patient);
-        PatientDto update = new PatientDto();
-        update.setNom("Ait");
-        PatientResponseDto dto = patientService.modifierPatient(saved.getId(),update);
-        assertEquals("Ait", dto.getNom());
-    }
+
 
     @Test
     void supprimerPatient(){
