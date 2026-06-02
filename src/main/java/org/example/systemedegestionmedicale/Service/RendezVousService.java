@@ -71,17 +71,19 @@ public class RendezVousService {
         return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
     }
 
-    public List<RendezVouResponseDto> findPatientById(long id, String userConnecte) {
+    public Page<RendezVouResponseDto> findPatientById(long id,int page,int size, String userConnecte) {
 
+        Pageable pageable = PageRequest.of(page,size);
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invalid id"));
 
         if (!patient.getUser().getUsername().equals(userConnecte)) {
             throw new AccessDeniedException("Vous n'êtes pas autorisé à consulter ces rendez-vous.");
         }
-        List<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByPatient_Id(id);
+        Page<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByPatient_Id(id, pageable);
 
-        return rendezVouMapper.toDtoList(lesRendezVous);
+        return lesRendezVous.map(rendezVouMapper::toResponseDto);
+
     }
 
     public List<RendezVouResponseDto> findMedecinById(long id, String userConnecte) {

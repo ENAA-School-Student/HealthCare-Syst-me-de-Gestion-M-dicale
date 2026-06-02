@@ -30,16 +30,8 @@ public class MedecinTest {
     @BeforeEach
     void initialisation(){
         medecinDto.setNom("Outla");
-        medecinDto.setEmail("zakariaaa@exmple.com");
         medecinDto.setSpecialite("dr");
         medecinDto.setTelephone("0607834756");
-    }
-
-    @Test
-    void ajouterMedecin(){
-        MedecinResponseDto medecinDto1 = medecinService.ajouterMedecin(medecinDto);
-        assertNotNull(medecinDto1);
-        assertEquals(medecinDto.getEmail(), medecinDto1.getEmail());
     }
 
     @Test

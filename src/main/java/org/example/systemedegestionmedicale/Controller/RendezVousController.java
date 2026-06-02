@@ -52,11 +52,12 @@ public class RendezVousController {
 
     @PreAuthorize("hasAnyRole('PATIENT', 'ADMIN')")
     @GetMapping("/{id}/patient")
-    public List<RendezVouResponseDto> findPatientById(@PathVariable long id, Authentication authentication){
+    public Page<RendezVouResponseDto> findPatientById(@PathVariable long id, @RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "size", defaultValue = "20") int size, Authentication authentication){
 
         String userConnecte = authentication.getName();
 
-        return rendezVousService.findPatientById(id, userConnecte);
+        Page<RendezVouResponseDto> rendevous =  rendezVousService.findPatientById(id, page,size,userConnecte);
+        return rendevous;
     }
 
     @PreAuthorize("hasAnyRole('MEDECIN', 'ADMIN')")
