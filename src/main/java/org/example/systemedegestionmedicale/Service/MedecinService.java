@@ -6,6 +6,9 @@ import org.example.systemedegestionmedicale.Dto.response.MedecinResponseDto;
 import org.example.systemedegestionmedicale.Mapper.MedecinMapper;
 import org.example.systemedegestionmedicale.Models.Medecin;
 import org.example.systemedegestionmedicale.Repository.MedecinRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +35,7 @@ public class MedecinService {
 
     }
 
+    @CachePut(value = "MEDECIN_CACHE", key = "#id")
     public MedecinResponseDto ModifierMedecin(long id, MedecinDto medecinDto){
         Medecin saveId = medecinRepository.findById(id).orElse(null);
 
@@ -42,10 +46,12 @@ public class MedecinService {
         return medecinMapper.toResponseDto(update);
     }
 
+    @CacheEvict(value = "MEDECIN_CACHE")
     public void supprimerMedecin(long id){
         medecinRepository.deleteById(id);
     }
 
+    @Cacheable(value = "MEDECIN_CACHE", key = "'all_medecin'")
     public List<MedecinResponseDto> listerMedecins(){
         return medecinMapper.toDtoList(medecinRepository.findAll());
     }
@@ -56,6 +62,7 @@ public class MedecinService {
         return medecins.map(medecinMapper::toResponseDto);
 
     }
+
 
     public Page<MedecinResponseDto> rechercheMedecinParSpecialite(String specialite, int page , int size ){
         Pageable pageable = PageRequest.of(page, size);

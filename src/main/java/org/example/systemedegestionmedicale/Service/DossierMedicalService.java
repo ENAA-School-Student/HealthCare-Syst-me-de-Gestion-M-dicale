@@ -7,6 +7,7 @@ import org.example.systemedegestionmedicale.Dto.response.DossierMedicalResponseD
 import org.example.systemedegestionmedicale.Mapper.DossierMedicalMapper;
 import org.example.systemedegestionmedicale.Models.DossierMedical;
 import org.example.systemedegestionmedicale.Repository.DossierMedicalRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,7 +69,7 @@ public class DossierMedicalService {
         return dossierMedicalMapper.toResponseDto(update);
     }
 
-
+    @Cacheable(value = "MEDICAL_CACHE", key = "#id")
     public DossierMedicalResponseDto consulterDossierMedical(long id, String userConnecte) {
 
         DossierMedical dossier = dossierMedicalRepository.findDossierMedicalByPatient_Id(id)

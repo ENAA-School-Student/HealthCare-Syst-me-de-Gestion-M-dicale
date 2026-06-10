@@ -4,11 +4,12 @@ package org.example.systemedegestionmedicale.Dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class DossierMedicalResponseDto {
+public class DossierMedicalResponseDto implements Serializable {
     private long id;
     private String diagnostic;
     private String observation;

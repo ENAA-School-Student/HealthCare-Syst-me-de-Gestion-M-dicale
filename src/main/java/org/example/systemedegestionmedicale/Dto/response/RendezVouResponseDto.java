@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class RendezVouResponseDto {
+public class RendezVouResponseDto implements Serializable {
     private long id;
     private LocalDate dateRendezVous;
     private StatusRendezVou statusRendezVou;

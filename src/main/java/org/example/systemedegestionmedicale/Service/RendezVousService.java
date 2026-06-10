@@ -60,6 +60,7 @@ public class RendezVousService {
         return rendezVouMapper.toResponseDto(update);
     }
 
+
     public RendezVouResponseDto annulerRendezVous(long id){
         RendezVou findRendezVous = rendezVousRepository.findById(id).orElse(null);
          findRendezVous.setStatusRendezVou(StatusRendezVou.ANNULE);

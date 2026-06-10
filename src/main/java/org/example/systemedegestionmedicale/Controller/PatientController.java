@@ -57,7 +57,7 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/tri-patient-par-nom")
+    @GetMapping("/tri")
     public Page<PatientResponseDto> triPatientParNom(@RequestParam(value ="page", defaultValue = "0") int page,
                                                      @RequestParam(value = "size", defaultValue = "20") int size
                                                      ){
