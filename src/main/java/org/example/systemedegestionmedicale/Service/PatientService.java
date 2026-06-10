@@ -63,8 +63,8 @@ public class PatientService {
 
 
     @Cacheable(value = "PATIENT_CACHE", key = "'all_patients'")
-    public List<PatientResponseDto> listerPatients(){
-        return patientMapper.todtolist(patientRepository.findAll());
+    public Page<PatientResponseDto> listerPatients(Pageable pageable){
+        return patientRepository.findAll(pageable).map(patientMapper::toResponseDto);
     }
 
     @Cacheable(value = "PATIENT_CACHE", key = "#id")

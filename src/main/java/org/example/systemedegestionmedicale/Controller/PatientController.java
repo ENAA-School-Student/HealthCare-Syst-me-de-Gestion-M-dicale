@@ -6,6 +6,9 @@ import org.example.systemedegestionmedicale.Dto.request.PatientDto;
 import org.example.systemedegestionmedicale.Dto.response.PatientResponseDto;
 import org.example.systemedegestionmedicale.Service.PatientService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +45,8 @@ public class PatientController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/patient")
-    public List<PatientResponseDto> listerPatients(){
-      return  patientService.listerPatients();
+    public Page<PatientResponseDto> listerPatients(@PageableDefault(size = 20, sort = "capacite", direction = Sort.Direction.ASC)Pageable pageable ){
+      return  patientService.listerPatients(pageable);
     }
 
 
