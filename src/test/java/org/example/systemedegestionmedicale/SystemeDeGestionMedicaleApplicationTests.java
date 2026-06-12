@@ -6,20 +6,21 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 @TestPropertySource(properties = {
-        "app.jwt.secret=testSecretKeyForTestingOnlyNotReal12345678",
+        "app.jwt.secret=testSecretKeyForTestingOnlyNotReal12345678901234",
         "app.jwt.expiration=86400000",
-        "spring.datasource.url=jdbc:h2:mem:testdb",
+        "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
         "spring.datasource.username=sa",
         "spring.datasource.password=",
+        "spring.datasource.driver-class-name=org.h2.Driver",
+        "spring.jpa.hibernate.ddl-auto=create-drop",
+        "spring.flyway.enabled=false",
         "spring.cache.type=none",
         "spring.data.redis.host=localhost",
         "spring.data.redis.port=6379"
 })
 class SystemeDeGestionMedicaleApplicationTests {
 
-
     @Test
     void contextLoads() {
     }
-
 }
