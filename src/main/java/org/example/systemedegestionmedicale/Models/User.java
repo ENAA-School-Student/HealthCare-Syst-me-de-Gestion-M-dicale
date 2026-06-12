@@ -49,7 +49,6 @@ public class User implements UserDetails{
     }
 
 
-    //comente
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
