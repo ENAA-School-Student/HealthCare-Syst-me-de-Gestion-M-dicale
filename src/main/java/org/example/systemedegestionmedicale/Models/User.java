@@ -48,6 +48,8 @@ public class User implements UserDetails{
         return UserDetails.super.isCredentialsNonExpired();
     }
 
+
+    //comente
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
