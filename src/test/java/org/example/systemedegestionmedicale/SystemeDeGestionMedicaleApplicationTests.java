@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
         "spring.jpa.hibernate.ddl-auto=create-drop",
         "spring.flyway.enabled=false",
         "spring.cache.type=none",
+        "spring.data.redis.url=redis://localhost:6379",
         "spring.data.redis.host=localhost",
         "spring.data.redis.port=6379"
 })
