@@ -6,8 +6,13 @@ import org.example.systemedegestionmedicale.Dto.request.RendezVousDto;
 import org.example.systemedegestionmedicale.Dto.request.RendezVousModifierDto;
 import org.example.systemedegestionmedicale.Dto.response.RendezVouResponseDto;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
+import org.example.systemedegestionmedicale.Models.RendezVou;
 import org.example.systemedegestionmedicale.Service.RendezVousService;
+import org.example.systemedegestionmedicale.pdf.PdfService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +26,10 @@ import java.util.List;
 public class RendezVousController {
 
     private final RendezVousService rendezVousService;
-    public RendezVousController(RendezVousService rendezVousService){
+    private final PdfService pdfService;
+    public RendezVousController(RendezVousService rendezVousService, PdfService pdfService){
         this.rendezVousService = rendezVousService;
+        this.pdfService = pdfService;
     }
 
 
@@ -52,11 +59,9 @@ public class RendezVousController {
 
     @PreAuthorize("hasAnyRole('PATIENT', 'ADMIN')")
     @GetMapping("/{id}/patient")
-    public Page<RendezVouResponseDto> findPatientById(@PathVariable long id, @RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "size", defaultValue = "20") int size, Authentication authentication){
+    public List<RendezVouResponseDto> findPatientById(@PathVariable long id){
 
-        String userConnecte = authentication.getName();
-
-        Page<RendezVouResponseDto> rendevous =  rendezVousService.findPatientById(id, page,size,userConnecte);
+        List<RendezVouResponseDto> rendevous =  rendezVousService.findPatientById(id);
         return rendevous;
     }
 
@@ -66,7 +71,7 @@ public class RendezVousController {
 
         String userConnecte = authentication.getName();
 
-        return rendezVousService.findMedecinById(id, userConnecte);
+        return rendezVousService.findMedecinById(id);
     }
 
 
@@ -93,4 +98,15 @@ public class RendezVousController {
         Page<RendezVouResponseDto> rendezVous = rendezVousService.rechercheRendezVousParStatut(status, page, size);
         return rendezVous;
     }
-}
+
+    @PreAuthorize("hasAnyRole('ADMIN','MEDECIN','PATIENT')")
+    @GetMapping("/pdf/{idPatient}")
+    public ResponseEntity<byte[]> downloadPdfPatient(@PathVariable Long idPatient) {
+        List<RendezVouResponseDto> rdvs = rendezVousService.findPatientById(idPatient);
+        byte[] pdf = pdfService.generateRendezVousPdf(rdvs);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=rendezvous_patient_" + idPatient + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }}

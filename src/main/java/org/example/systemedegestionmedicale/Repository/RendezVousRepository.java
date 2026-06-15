@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface RendezVousRepository extends JpaRepository<RendezVou, Long> {
 
-    Page<RendezVou> findRendezVouByPatient_Id(long id,Pageable pageable);
+    List<RendezVou> findRendezVouByPatient_Id(long id);
     List<RendezVou> findRendezVouByMedecin_Id(long id);
 
 

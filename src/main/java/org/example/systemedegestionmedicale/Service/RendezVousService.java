@@ -72,31 +72,23 @@ public class RendezVousService {
         return rendezVouMapper.toDtoList(rendezVousRepository.findAll());
     }
 
-    public Page<RendezVouResponseDto> findPatientById(long id,int page,int size, String userConnecte) {
+    public List<RendezVouResponseDto> findPatientById(long id) {
 
-        Pageable pageable = PageRequest.of(page,size);
         Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Invalid id"));
+                .orElseThrow(()-> new RuntimeException("Patient b had l'ID ma-kaynch"));
 
-        if (!patient.getUser().getUsername().equals(userConnecte)) {
-            throw new AccessDeniedException("Vous n'êtes pas autorisé à consulter ces rendez-vous.");
-        }
-        Page<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByPatient_Id(id, pageable);
+        List<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByPatient_Id(patient.getId());
+        return rendezVouMapper.toDtoList(lesRendezVous);
 
-        return lesRendezVous.map(rendezVouMapper::toResponseDto);
 
     }
 
-    public List<RendezVouResponseDto> findMedecinById(long id, String userConnecte) {
+    public List<RendezVouResponseDto> findMedecinById(long id) {
 
         Medecin medecin = medecinRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medecin b had l'ID ma-kaynch"));
 
-        if (!medecin.getUser().getUsername().equals(userConnecte)) {
-            throw new AccessDeniedException("Vous n'êtes pas autorisé à consulter l'agenda de ce médecin.");
-        }
-
-        List<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByMedecin_Id(id);
+        List<RendezVou> lesRendezVous = rendezVousRepository.findRendezVouByMedecin_Id(medecin.getId());
 
         return rendezVouMapper.toDtoList(lesRendezVous);
     }

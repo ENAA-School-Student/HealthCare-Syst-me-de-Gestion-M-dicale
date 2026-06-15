@@ -24,12 +24,6 @@ public class DossierMedicalService {
         this.dossierMedicalMapper = dossierMedicalMapper;
     }
 
-    private boolean isUserMedecin() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().toUpperCase().contains("MEDECIN")
-                        || a.getAuthority().toUpperCase().contains("ADMIN"));
-    }
 
     public DossierMedicalResponseDto CreerDossierMedical(DossierMedicalDto dossierMedicalDto){
         DossierMedical entity = dossierMedicalMapper.toEntity(dossierMedicalDto);
@@ -38,14 +32,10 @@ public class DossierMedicalService {
     }
 
 
-    public DossierMedicalResponseDto ajouterDiagnostic(long id, DossierMedicalAjouteDiagnosticDto dossier, String userConnecte){
+    public DossierMedicalResponseDto ajouterDiagnostic(long id, DossierMedicalAjouteDiagnosticDto dossier){
 
         DossierMedical saveDiagnostic = dossierMedicalRepository.findDossierMedicalByPatient_Id(id)
                 .orElseThrow(() -> new RuntimeException("Dossier médical introuvable."));
-
-        if (!isUserMedecin()) {
-            throw new AccessDeniedException("Seul un médecin peut ajouter un diagnostic.");
-        }
 
         saveDiagnostic.setDiagnostic(dossier.getDiagnostic());
         DossierMedical update = dossierMedicalRepository.save(saveDiagnostic);
@@ -54,14 +44,10 @@ public class DossierMedicalService {
     }
 
 
-    public DossierMedicalResponseDto ajouterObservations(long id, DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto, String userConnecte){
+    public DossierMedicalResponseDto ajouterObservations(long id, DossierMedicalAjouterObservationsDto dossierMedicalAjouterObservationsDto){
 
         DossierMedical saveObservations = dossierMedicalRepository.findDossierMedicalByPatient_Id(id)
                 .orElseThrow(() -> new RuntimeException("Dossier médical introuvable."));
-
-        if (!isUserMedecin()) {
-            throw new AccessDeniedException("Seul un médecin peut ajouter une observation.");
-        }
 
         saveObservations.setObservation(dossierMedicalAjouterObservationsDto.getObservation());
         DossierMedical update = dossierMedicalRepository.save(saveObservations);
@@ -70,16 +56,11 @@ public class DossierMedicalService {
     }
 
     @Cacheable(value = "MEDICAL_CACHE", key = "#id")
-    public DossierMedicalResponseDto consulterDossierMedical(long id, String userConnecte) {
+    public DossierMedicalResponseDto consulterDossierMedical(long id) {
 
         DossierMedical dossier = dossierMedicalRepository.findDossierMedicalByPatient_Id(id)
                 .orElseThrow(() -> new RuntimeException("Dossier médical introuvable."));
 
-        boolean isMoulDossier = dossier.getPatient().getUser().getUsername().equals(userConnecte);
-
-        if (!isMoulDossier && !isUserMedecin()) {
-            throw new AccessDeniedException("Confidentialité: Vous n'êtes pas autorisé à consulter ce dossier médical.");
-        }
 
         return dossierMedicalMapper.toResponseDto(dossier);
     }
