@@ -12,8 +12,19 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/healthcare
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 2002
+      SPRING_DATASOURCE_PASSWORD: Zakaria@741
       SPRING_CACHE_TYPE: simple
+    networks:
+      - app_network
+
+
+  frontend:
+    build: ../HealthCare+
+    container_name: healthcare
+    depends_on:
+      - app
+    ports:
+      - "3000:80"
     networks:
       - app_network
 
@@ -25,13 +36,13 @@ services:
       - "3307:3306"
     environment:
       MYSQL_DATABASE: healthcare
-      MYSQL_ROOT_PASSWORD: 2002
+      MYSQL_ROOT_PASSWORD: Zakaria@741
     volumes:
       - db_data:/var/lib/mysql
     networks:
       - app_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p2002"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pZakaria@741"]
       interval: 10s
       timeout: 5s
       retries: 10

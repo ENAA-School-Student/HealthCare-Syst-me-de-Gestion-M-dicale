@@ -16,4 +16,7 @@ public class RendezVouResponseDto implements Serializable {
     private StatusRendezVou statusRendezVou;
     private long patientId;
     private long medecinId;
+    private String patientNom;
+    private String patientPrenom;
+    private String medecinNom;
 }

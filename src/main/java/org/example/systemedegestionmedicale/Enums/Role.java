@@ -1,5 +1,5 @@
 package org.example.systemedegestionmedicale.Enums;
 
 public enum Role {
-    admin, patient, medecin
+    admin,patient,medecin
 }

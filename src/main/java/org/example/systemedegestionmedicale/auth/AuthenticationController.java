@@ -2,6 +2,7 @@ package org.example.systemedegestionmedicale.auth;
 
 import org.example.systemedegestionmedicale.Dto.request.UserRequest;
 import org.example.systemedegestionmedicale.Dto.request.UserRequestLogin;
+import org.example.systemedegestionmedicale.Enums.Role;
 import org.example.systemedegestionmedicale.Models.User;
 import org.example.systemedegestionmedicale.Repository.UserRepository;
 import org.example.systemedegestionmedicale.configuration.JwtUtil;
@@ -9,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -42,7 +41,11 @@ public class AuthenticationController {
         UserDetails userDetails =
                 userDetailsService.loadUserByUsername(request.getUsername());
         String token = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(Map.of("token", token));
+        String role = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(authority -> authority.getAuthority())
+                .orElse("");
+        return ResponseEntity.ok(Map.of("token", token, "role", role));
     }
 
 
@@ -60,5 +63,19 @@ public class AuthenticationController {
         return ResponseEntity.ok("User registered successfully");
     }
 
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("invalid username"));
+
+        return ResponseEntity.ok(Map.of(
+                "id", user.getId(),
+                "username", user.getUsername(),
+                "email", user.getEmail(),
+                "role", user.getRole()
+        ));
+    }
 
 }

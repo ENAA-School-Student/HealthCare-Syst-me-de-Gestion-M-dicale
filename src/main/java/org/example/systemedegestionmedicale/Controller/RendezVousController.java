@@ -52,7 +52,7 @@ public class RendezVousController {
     }
 
     @PreAuthorize("hasAnyRole('MEDECIN','ADMIN')")
-    @GetMapping
+    @GetMapping("/all")
     public List<RendezVouResponseDto> listerRendezVous(){
         return rendezVousService.listerRendezVous();
     }

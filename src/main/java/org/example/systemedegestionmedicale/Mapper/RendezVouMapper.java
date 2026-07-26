@@ -11,7 +11,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface RendezVouMapper {
     @Mapping(source = "patient.id", target = "patientId")
+    @Mapping(source = "patient.nom", target = "patientNom")
+    @Mapping(source = "patient.prenom", target = "patientPrenom")
     @Mapping(source = "medecin.id", target = "medecinId")
+    @Mapping(source = "medecin.nom", target = "medecinNom")
     RendezVouResponseDto toResponseDto(RendezVou rendezVou);
 
     @Mapping(source = "patientId", target = "patient.id")
