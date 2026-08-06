@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -92,8 +93,9 @@ public class PatientService {
 
     @Cacheable(value = "PATIENT_CACHE",
             key = "'patients_tri_nom_page_' + #page + '_size_' + #size")
-    public Page<PatientResponseDto> triPatientParNom(int size, int page) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<PatientResponseDto> triPatientParNom(int size, int page, String sort) {
+
+        Pageable pageable = sort.equalsIgnoreCase("asc") ? PageRequest.of(page, size, Sort.Direction.ASC) : PageRequest.of(page, size, Sort.Direction.DESC);
         Page<Patient> patients = patientRepository.findAllByOrderByNomDesc(pageable);
         return patients.map(patientMapper::toResponseDto);
     }

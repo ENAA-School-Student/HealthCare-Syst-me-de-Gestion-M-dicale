@@ -1,5 +1,6 @@
 package org.example.systemedegestionmedicale.Dto.response;
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +14,11 @@ public class PatientResponseDto implements Serializable {
     private String prenom;
     private String Telephone;
     private LocalDate dateNaissance;
+    private long userId;
+    private String userEmail;
+    private long medicalId;
+    private String diagnostic;
+    private String observation;
+    private LocalDate dateCreation;
+
 }

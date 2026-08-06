@@ -23,8 +23,11 @@ public class Patient {
     @Column(name = "date_naissance")
     private LocalDate dateNaissance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RendezVou> rendezVous;
+
+    @OneToOne(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
+    private DossierMedical dossierMedical;
 
     @OneToOne
     @JoinColumn(name = "user_id")

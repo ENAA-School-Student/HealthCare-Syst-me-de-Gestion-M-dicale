@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.systemedegestionmedicale.Enums.StatusRendezVou;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -26,6 +27,7 @@ public class RendezVou {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @org.hibernate.annotations.OnDelete(action = OnDeleteAction.CASCADE)
     private Patient patient;
 
     @ManyToOne

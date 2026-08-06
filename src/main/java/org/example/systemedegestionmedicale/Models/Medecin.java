@@ -19,7 +19,7 @@ public class Medecin {
     private String telephone;
 
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "medecin",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RendezVou> rendezVous;
 
     @OneToOne

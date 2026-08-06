@@ -70,8 +70,10 @@ public class PatientController {
     @GetMapping("/tri")
     public Page<PatientResponseDto> triPatientParNom(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "20") int size) {
-        return patientService.triPatientParNom(size, page);
+            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam(value = "sort", defaultValue = "ASC") String sort)
+    {
+        return patientService.triPatientParNom(size, page, sort);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
